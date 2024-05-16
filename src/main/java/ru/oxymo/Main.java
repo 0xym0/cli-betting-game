@@ -6,14 +6,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.oxymo.data.Configuration;
 import ru.oxymo.data.Result;
 import ru.oxymo.utils.CalculationUtils;
+import ru.oxymo.utils.FileUtils;
 import ru.oxymo.utils.JSONUtils;
 import ru.oxymo.utils.MatrixUtils;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Main {
     @Parameter(names = {"--config", "-c"})
@@ -32,15 +29,15 @@ public class Main {
 
         try {
             main.loadConfiguration();
-            main.generateResult();
+            main.calculateAndPrintResult();
         } catch (IOException | RuntimeException e) {
             System.out.println("Error caught - " + e.getClass().getSimpleName() + ": " + e.getMessage());
         }
     }
 
-    private void generateResult() throws JsonProcessingException {
-        String[][] matrix = MatrixUtils.generateMatrix(configuration.getRows(),
-                configuration.getColumns(), configuration.getProbabilityMap());
+    private void calculateAndPrintResult() throws JsonProcessingException {
+        String[][] matrix = MatrixUtils.generateMatrix(
+                configuration.getRows(), configuration.getColumns(), configuration.getProbabilityMap());
         Result result = CalculationUtils.getCalculationResult(
                 matrix,
                 bettingAmount,
@@ -50,9 +47,7 @@ public class Main {
     }
 
     private void loadConfiguration() throws IOException {
-        Path configurationPath = Paths.get(configurationFileString);
-        String contentString = String.join("",
-                Files.readAllLines(configurationPath, StandardCharsets.UTF_8));
-        configuration = JSONUtils.readValueFromString(contentString, Configuration.class);
+        configuration = JSONUtils.readValueFromString(
+                FileUtils.readFileContents(configurationFileString), Configuration.class);
     }
 }
