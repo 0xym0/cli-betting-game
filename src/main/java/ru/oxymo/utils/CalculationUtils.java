@@ -65,7 +65,7 @@ public class CalculationUtils {
             throw new IllegalArgumentException("Empty matrix passed to getCalculationResult method");
         }
         if (bettingAmount <= 0) {
-            throw new IllegalArgumentException("Invalid betting amount passedto getCalculationResult method");
+            throw new IllegalArgumentException("Invalid betting amount passed to getCalculationResult method");
         }
         if (symbolMap == null || symbolMap.isEmpty()) {
             throw new IllegalArgumentException("Empty symbol map passed to getCalculationResult method");
@@ -117,6 +117,7 @@ public class CalculationUtils {
     private static double applyBonusToRewardIfExists(double reward,
                                                      String bonusSymbolCode,
                                                      Map<String, Symbol> symbolMap) {
+//        The bonus symbol is only applicable if the reward is greater than zero
         if (bonusSymbolCode != null && reward > 0) {
             BonusSymbol bonusSymbol = (BonusSymbol) symbolMap.get(bonusSymbolCode);
             switch (bonusSymbol.getImpact()) {
@@ -127,6 +128,9 @@ public class CalculationUtils {
                 case "extra_bonus": {
                     reward += bonusSymbol.getExtra();
                     break;
+                }
+                case "miss": {
+//                    TODO: should we reset the reward to zero in this case?
                 }
             }
         }
