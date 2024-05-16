@@ -93,6 +93,19 @@ class CalculationUtilsTest {
     }
 
     @Test
+    @DisplayName("Testing reward for betting 100 for matrix: [[D, D, E], [F, E, E], [E, E, E]]")
+    void getCalculationResultTest6() {
+        String[][] matrix = {{"D", "D", "E"}, {"F", "E", "E"}, {"E", "E", "E"}};
+        Result result =
+                CalculationUtils.getCalculationResult(matrix, 100L, symbolMap, winCombinationMap);
+        assertEquals(18000, result.getReward());
+        assertNull(result.getAppliedBonusSymbol());
+        assertEquals(List.of("same_symbol_6_times", "same_symbols_horizontally",
+                        "same_symbols_vertically", "same_symbols_diagonally_right_to_left"),
+                result.getWinningCombinationsMap().get("E"));
+    }
+
+    @Test
     @DisplayName("Testing incorrect input parameters")
     void throwExceptionOnGetCalculationResultTest() {
         String[][] matrix = {{"F", "E", "B"}, {"E", "E", "B"}, {"5x", "D", "D"}};
