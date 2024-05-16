@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
-
     @Parameter(names = {"--config", "-c"})
     String configurationFileString;
     @Parameter(names = {"--betting-amount", "-b"})
@@ -42,7 +41,6 @@ public class Main {
     private void generateResult() throws JsonProcessingException {
         String[][] matrix = MatrixUtils.generateMatrix(configuration.getRows(),
                 configuration.getColumns(), configuration.getProbabilityMap());
-//        System.out.println("Generated matrix: " + Arrays.deepToString(matrix));
         Result result = CalculationUtils.getCalculationResult(
                 matrix,
                 bettingAmount,
@@ -56,7 +54,5 @@ public class Main {
         String contentString = String.join("",
                 Files.readAllLines(configurationPath, StandardCharsets.UTF_8));
         configuration = JSONUtils.readValueFromString(contentString, Configuration.class);
-//        System.out.println("Configuration: " + configuration.getProbabilityMap());
     }
-
 }

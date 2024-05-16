@@ -2,7 +2,7 @@ package ru.oxymo.data;
 
 import com.fasterxml.jackson.annotation.*;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = StandardSymbol.class, name = "standard"),
         @JsonSubTypes.Type(value = BonusSymbol.class, name = "bonus")

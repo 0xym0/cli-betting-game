@@ -1,14 +1,16 @@
 package ru.oxymo.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "when")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "when", visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CountWinCombination.class, name = "same_symbols"),
         @JsonSubTypes.Type(value = LinearWinCombination.class, name = "linear_symbols")
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WinCombination {
     @JsonProperty("reward_multiplier")
     private double rewardMultiplier;
