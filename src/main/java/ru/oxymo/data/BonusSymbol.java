@@ -1,22 +1,22 @@
 package ru.oxymo.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.*;
 
 @JsonTypeName("bonus")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonPropertyOrder({"extra", "reward_multiplier", "type", "impact"})
 public class BonusSymbol extends Symbol {
     @JsonProperty("extra")
-    private int extra;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Integer extra;
     @JsonProperty("impact")
     private String impact;
 
-    public int getExtra() {
+    public Integer getExtra() {
         return extra;
     }
 
-    public void setExtra(int extra) {
+    public void setExtra(Integer extra) {
         this.extra = extra;
     }
 

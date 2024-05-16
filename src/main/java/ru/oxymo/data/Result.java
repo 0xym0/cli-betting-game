@@ -3,6 +3,8 @@ package ru.oxymo.data;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import ru.oxymo.utils.DoubleJSONSerializer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Result {
     @JsonProperty("matrix")
     private String[][] matrix;
     @JsonProperty("reward")
+    @JsonSerialize(using = DoubleJSONSerializer.class)
     private double reward;
     @JsonProperty("applied_winning_combinations")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)

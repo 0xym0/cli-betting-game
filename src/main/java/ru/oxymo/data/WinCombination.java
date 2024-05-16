@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import ru.oxymo.utils.DoubleJSONSerializer;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "when", visible = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "when",
+        include = JsonTypeInfo.As.EXISTING_PROPERTY, visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CountWinCombination.class, name = "same_symbols"),
         @JsonSubTypes.Type(value = LinearWinCombination.class, name = "linear_symbols")
@@ -13,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WinCombination {
     @JsonProperty("reward_multiplier")
+    @JsonSerialize(using = DoubleJSONSerializer.class)
     private double rewardMultiplier;
     @JsonProperty("when")
     private String when;
