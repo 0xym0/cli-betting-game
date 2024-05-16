@@ -320,5 +320,5 @@ Here is the example of `configuration.json` file for running the application:
 For running the application just use the command in any command-line interface:
 
 ```bash
- java -jar cli-betting-game.jar --config configuration.json --betting-amount 100
+ java -jar cli-betting-game-1.0-jar-with-dependencies.jar --config configuration.json --betting-amount 100
 ```
